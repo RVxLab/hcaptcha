@@ -1,5 +1,5 @@
 {
-    "name": "scyllaly/hcaptcha",
+    "name": "rvxlab/hcaptcha",
     "description": "hCaptcha for Laravel",
     "keywords": ["hcaptcha", "captcha", "laravel"],
     "license": "MIT",

@@ -1,36 +1,42 @@
 # hCaptcha
+
 Project based on [laravel-reCAPTCHA](https://github.com/Dylanchouxd/laravel-reCAPTCHA) development.
+
+## DISCLAIMER
+
+This is a drop-in replacement for [Scyllaly's HCaptcha package](https://github.com/Scyllaly/hcaptcha), who seemlingly abandoned the project.
 
 ## Installation
 
 ```
-composer require scyllaly/hcaptcha
+composer require rvxlab/hcaptcha
 ```
 
 ## Laravel 5 and above
 
 ### Setup
 
-In `app/config/app.php` add the following :
-
-1- The ServiceProvider to the providers array :
-
-```php
-Scyllaly\HCaptcha\HCaptchaServiceProvider::class,
-```
-
-2- The class alias to the aliases array :
-
-```php
-'HCaptcha' => Scyllaly\HCaptcha\Facades\HCaptcha::class,
-```
-
-3- Publish the config file
+Publish the config file
 
 ```ssh
 php artisan vendor:publish --provider="Scyllaly\HCaptcha\HCaptchaServiceProvider"
 ```
 
+And if you're at Laravel 5.3 or earlier also do the following
+
+In `app/config/app.php` add the following:
+
+The ServiceProvider to the providers array:
+
+```php
+Scyllaly\HCaptcha\HCaptchaServiceProvider::class,
+```
+
+The class alias to the aliases array:
+
+```php
+'HCaptcha' => Scyllaly\HCaptcha\Facades\HCaptcha::class,
+```
 ### Configuration
 
 Add `HCAPTCHA_SECRET` and `HCAPTCHA_SITEKEY` in **.env** file :

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scyllaly\HCaptcha\Facades;
 
 use Illuminate\Support\Facades\Facade;

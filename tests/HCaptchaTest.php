@@ -1,23 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
+namespace Scyllaly\HCaptcha\Tests;
+
 use Scyllaly\HCaptcha\HCaptcha;
 
-class HCaptchaTest extends PHPUnit_Framework_TestCase
+final class HCaptchaTest extends TestCase
 {
-    /**
-     * @var HCaptchaTest
-     */
+    /** @var HCaptchaTest */
     private $captcha;
 
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
+
         $this->captcha = new hCaptcha('{secret-key}', '{site-key}');
     }
 
-    public function testJsLink()
+    public function testJsLink(): void
     {
-        $this->assertTrue($this->captcha instanceof hCaptcha);
+        $this->assertInstanceOf(HCaptcha::class, $this->captcha);
 
         $simple = '<script src="https://hcaptcha.com/1/api.js?" async defer></script>' . "\n";
         $withLang = '<script src="https://hcaptcha.com/1/api.js?hl=vi" async defer></script>' . "\n";
@@ -28,9 +31,9 @@ class HCaptchaTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($withCallback, $this->captcha->renderJs(null, true, 'myOnloadCallback'));
     }
 
-    public function testDisplay()
+    public function testDisplay(): void
     {
-        $this->assertTrue($this->captcha instanceof hCaptcha);
+        $this->assertInstanceOf(HCaptcha::class, $this->captcha);
 
         $simple = '<div data-sitekey="{site-key}" class="h-captcha"></div>';
         $withAttrs = '<div data-theme="light" data-sitekey="{site-key}" class="h-captcha"></div>';
@@ -39,9 +42,9 @@ class HCaptchaTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($withAttrs, $this->captcha->display(['data-theme' => 'light']));
     }
 
-    public function testdisplaySubmit()
+    public function testDisplaySubmit(): void
     {
-        $this->assertTrue($this->captcha instanceof hCaptcha);
+        $this->assertInstanceOf(HCaptcha::class, $this->captcha);
 
         $javascript = '<script>function onSubmittest(){document.getElementById("test").submit();}</script>';
         $simple = '<button data-callback="onSubmittest" data-sitekey="{site-key}" class="h-captcha"><span>submit</span></button>';
@@ -52,9 +55,9 @@ class HCaptchaTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($withAttrs . $javascript, $withAttrsResult);
     }
 
-    public function testdisplaySubmitWithCustomCallback()
+    public function testDisplaySubmitWithCustomCallback(): void
     {
-        $this->assertTrue($this->captcha instanceof hCaptcha);
+        $this->assertInstanceOf(HCaptcha::class, $this->captcha);
 
         $withAttrs = '<button data-theme="light" class="h-captcha 123" data-callback="onSubmitCustomCallback" data-sitekey="{site-key}"><span>submit123</span></button>';
 

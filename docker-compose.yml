@@ -1,0 +1,20 @@
+version: '3'
+services:
+  workspace:
+    build:
+      context: ./docker/workspace
+      dockerfile: Dockerfile
+      args:
+        PUID: '${PUID:-1000}'
+        PGID: '${PGID:-1000}'
+    environment:
+      RAY_REMOTE_PATH: '${RAY_REMOTE_PATH}'
+      RAY_LOCAL_PATH: '${RAY_LOCAL_PATH}'
+      RAY_HOST: '${RAY_HOST:-127.0.0.1}'
+    volumes:
+      - '.:/var/www/html'
+      - '~/.composer:/home/app/.composer'
+      - '~/.gitconfig:/home/app/.gitconfig'
+    tty: true
+    extra_hosts:
+      - '${RAY_HOST-127.0.0.1}:host-gateway'

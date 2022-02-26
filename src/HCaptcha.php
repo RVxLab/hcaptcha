@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Scyllaly\HCaptcha;
 
-use Symfony\Component\HttpFoundation\Request;
 use GuzzleHttp\Client;
+use Symfony\Component\HttpFoundation\Request;
 
 class HCaptcha
 {
-    const CLIENT_API = 'https://hcaptcha.com/1/api.js';
-    const VERIFY_URL = 'https://hcaptcha.com/siteverify';
+    public const CLIENT_API = 'https://hcaptcha.com/1/api.js';
+    public const VERIFY_URL = 'https://hcaptcha.com/siteverify';
 
     /**
      * The hCaptcha secret key.
@@ -24,9 +26,7 @@ class HCaptcha
      */
     protected $sitekey;
 
-    /**
-     * @var \GuzzleHttp\Client
-     */
+    /** @var \GuzzleHttp\Client */
     protected $http;
 
     /**
@@ -60,12 +60,11 @@ class HCaptcha
     public function display($attributes = [])
     {
         $attributes = $this->prepareAttributes($attributes);
+
         return '<div' . $this->buildAttributes($attributes) . '></div>';
     }
 
-    /**
-     * @see display()
-     */
+    /** @see display() */
     public function displayWidget($attributes = [])
     {
         return $this->display($attributes);
@@ -83,13 +82,13 @@ class HCaptcha
     public function displaySubmit($formIdentifier, $text = 'submit', $attributes = [])
     {
         $javascript = '';
-        if (!isset($attributes['data-callback'])) {
+        if (! isset($attributes['data-callback'])) {
             $functionName = 'onSubmit' . str_replace(['-', '=', '\'', '"', '<', '>', '`'], '', $formIdentifier);
             $attributes['data-callback'] = $functionName;
             $javascript = sprintf(
                 '<script>function %s(){document.getElementById("%s").submit();}</script>',
                 $functionName,
-                $formIdentifier
+                $formIdentifier,
             );
         }
 
@@ -129,12 +128,12 @@ class HCaptcha
         }
 
         // Return true if response already verfied before.
-        if (in_array($response, $this->verifiedResponses)) {
+        if (\in_array($response, $this->verifiedResponses)) {
             return true;
         }
 
         $verifyResponse = $this->sendRequestVerify([
-            'secret'   => $this->secret,
+            'secret' => $this->secret,
             'response' => $response,
             'remoteip' => $clientIp,
         ]);
@@ -143,6 +142,7 @@ class HCaptcha
             // A response can only be verified once from hCaptcha, so we need to
             // cache it to make it work in case we want to verify it multiple times.
             $this->verifiedResponses[] = $response;
+
             return true;
         } else {
             return false;
@@ -160,7 +160,7 @@ class HCaptcha
     {
         return $this->verifyResponse(
             $request->get('h-captcha-response'),
-            $request->getClientIp()
+            $request->getClientIp(),
         );
     }
 
@@ -168,7 +168,7 @@ class HCaptcha
      * Get hCaptcha js link.
      *
      * @param string  $lang
-     * @param boolean $callback
+     * @param bool $callback
      * @param string  $onLoadClass
      *
      * @return string
@@ -188,7 +188,7 @@ class HCaptcha
      * @param $params
      * @param $onLoadClass
      */
-    protected function setCallBackParams(&$params, $onLoadClass)
+    protected function setCallBackParams(&$params, $onLoadClass): void
     {
         $params['render'] = 'explicit';
         $params['onload'] = $onLoadClass;
@@ -220,7 +220,7 @@ class HCaptcha
     protected function prepareAttributes(array $attributes)
     {
         $attributes['data-sitekey'] = $this->sitekey;
-        if (!isset($attributes['class'])) {
+        if (! isset($attributes['class'])) {
             $attributes['class'] = '';
         }
         $attributes['class'] = trim('h-captcha ' . $attributes['class']);
@@ -243,6 +243,6 @@ class HCaptcha
             $html[] = $key . '="' . $value . '"';
         }
 
-        return count($html) ? ' ' . implode(' ', $html) : '';
+        return \count($html) ? ' ' . implode(' ', $html) : '';
     }
 }

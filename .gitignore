@@ -1,0 +1,8 @@
+.env
+vendor
+docker-compose.override.yml
+composer.lock
+.idea
+.php-cs-fixer.cache
+.phpunit.result.cache
+build/

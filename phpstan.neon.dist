@@ -8,3 +8,4 @@ parameters:
     checkModelProperties: true
     ignoreErrors:
         - '#Call to an undefined method Illuminate\\Contracts\\Container\\ContextualBindingBuilder\:\:giveConfig\(\).#'
+    reportUnmatchedIgnoredErrors: false

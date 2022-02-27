@@ -19,12 +19,14 @@ final class HCaptchaServiceProvider extends ServiceProvider
     {
         $this->bootConfig();
 
+        $this->bootTranslations();
+
         Validator::extend('HCaptcha', function ($attribute, $value) {
             /** @var Request $request */
             $request = request();
 
             return HCaptchaFacade::verifyResponse($value, $request->getClientIp());
-        }, 'The CAPTCHA is invalid, please try again or contact the site admin.');
+        }, trans('hcaptcha::validation.invalid_captcha'));
 
         // @codeCoverageIgnoreStart
         if ($this->app->bound('form')) {
@@ -37,7 +39,7 @@ final class HCaptchaServiceProvider extends ServiceProvider
         // @codeCoverageIgnoreEnd
     }
 
-    protected function bootConfig(): void
+    private function bootConfig(): void
     {
         $path = __DIR__ . '/../../config/config.php';
 
@@ -45,7 +47,20 @@ final class HCaptchaServiceProvider extends ServiceProvider
 
         $this->publishes([
             $path => config_path('HCaptcha.php'),
-        ]);
+        ], 'hcaptcha-config');
+    }
+
+    private function bootTranslations(): void
+    {
+        $sourcePath = __DIR__ . '/../../lang';
+
+        $destPath = lang_path('vendor/hcaptcha');
+
+        $this->loadTranslationsFrom($sourcePath, 'hcaptcha');
+
+        $this->publishes([
+            $sourcePath => $destPath,
+        ], 'hcaptcha-lang');
     }
 
     public function register(): void

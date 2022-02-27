@@ -24,8 +24,9 @@ final class HCaptchaServiceProvider extends ServiceProvider
             $request = request();
 
             return HCaptchaFacade::verifyResponse($value, $request->getClientIp());
-        });
+        }, 'The CAPTCHA is invalid, please try again or contact the site admin.');
 
+        // @codeCoverageIgnoreStart
         if ($this->app->bound('form')) {
             $form = $this->app->make('form');
 
@@ -33,6 +34,7 @@ final class HCaptchaServiceProvider extends ServiceProvider
                 return HCaptchaFacade::display($attributes);
             });
         }
+        // @codeCoverageIgnoreEnd
     }
 
     protected function bootConfig(): void

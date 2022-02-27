@@ -2,25 +2,28 @@ name: Run tests
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
 
 jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: true
       matrix:
         os: [ubuntu-latest]
         php: [7.4, 8.0, 8.1]
         laravel: [8.*, 9.*]
-        stability: [prefer-lowest, prefer-stable]
+        stability: [prefer-stable]
         include:
           - laravel: 8.*
             testbench: ^6.23
+            symfony: ^5
+            collision: ^5
           - laravel: 9.*
             testbench: ^7
+            symfony: ^6
+            collision: ^6
         exclude:
           - laravel: 9.*
             php: 7.4
@@ -36,7 +39,8 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, soap, intl, gd, exif, iconv, imagick, fileinfo
-          coverage: none
+          coverage: pcov
+          tools: composer:2.x
 
       - name: Setup problem matchers
         run: |
@@ -45,8 +49,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "symfony/console:${{ matrix.symfony }}" "nunomaduro/collision:${{ matrix.collision }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: Execute tests
-        run: vendor/bin/pest
+        run: vendor/bin/phpunit

@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace Scyllaly\HCaptcha\Providers;
 
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Psr\Http\Client\ClientInterface;
 use Scyllaly\HCaptcha\CaptchaVerifier;
 use Scyllaly\HCaptcha\Facades\HCaptcha as HCaptchaFacade;
 use Scyllaly\HCaptcha\HCaptcha;
+use Scyllaly\HCaptcha\Views\Components\Script;
+use Scyllaly\HCaptcha\Views\Components\Submit;
+use Scyllaly\HCaptcha\Views\Components\Widget;
 use Symfony\Component\HttpFoundation\Request;
 
 final class HCaptchaServiceProvider extends ServiceProvider
@@ -20,6 +24,8 @@ final class HCaptchaServiceProvider extends ServiceProvider
         $this->bootConfig();
 
         $this->bootTranslations();
+
+        $this->bootViewComponents();
 
         Validator::extend('HCaptcha', function ($attribute, $value) {
             /** @var Request $request */
@@ -61,6 +67,17 @@ final class HCaptchaServiceProvider extends ServiceProvider
         $this->publishes([
             $sourcePath => $destPath,
         ], 'hcaptcha-lang');
+    }
+
+    private function bootViewComponents(): void
+    {
+        Blade::componentNamespace('Scyllaly\\HCaptcha\\Views\\Components', 'hcaptcha');
+
+        Blade::components([
+             Script::class,
+             Widget::class,
+             Submit::class,
+        ]);
     }
 
     public function register(): void

@@ -1,5 +1,3 @@
 # Changelog
 
-All notable changes to `:package_name` will be documented in this file.
-
-## 5.0.0 - 202X-XX-XX
+All notable changes to `rvxlab/hcaptcha` will be documented in this file.

@@ -59,7 +59,7 @@
                 "HCaptcha": "Scyllaly\\HCaptcha\\Facades\\HCaptcha"
             },
             "providers": [
-                "Scyllaly\\HCaptcha\\HCaptchaServiceProvider"
+                "Scyllaly\\HCaptcha\\Providers\\HCaptchaServiceProvider"
             ]
         }
     }

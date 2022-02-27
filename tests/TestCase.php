@@ -6,7 +6,7 @@ namespace Scyllaly\HCaptcha\Tests;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use Scyllaly\HCaptcha\HCaptchaServiceProvider;
+use Scyllaly\HCaptcha\Providers\HCaptchaServiceProvider;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {

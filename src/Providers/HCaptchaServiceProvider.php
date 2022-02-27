@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Scyllaly\HCaptcha;
+namespace Scyllaly\HCaptcha\Providers;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Scyllaly\HCaptcha\Facades\HCaptcha as HCaptchaFacade;
+use Scyllaly\HCaptcha\HCaptcha;
 use Symfony\Component\HttpFoundation\Request;
 
 final class HCaptchaServiceProvider extends ServiceProvider
@@ -33,7 +34,7 @@ final class HCaptchaServiceProvider extends ServiceProvider
 
     protected function bootConfig(): void
     {
-        $path = __DIR__ . '/../config/config.php';
+        $path = __DIR__ . '/../../config/config.php';
 
         $this->mergeConfigFrom($path, 'HCaptcha');
 

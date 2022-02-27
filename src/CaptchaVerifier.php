@@ -63,14 +63,14 @@ class CaptchaVerifier
 
     protected function makeRequest(string $captchaResponse, ?string $clientIp = null): RequestInterface
     {
-        $body = json_encode([
+        $body = http_build_query([
             'secret' => $this->secret,
             'response' => $captchaResponse,
             'remoteip' => $clientIp,
-        ], \JSON_THROW_ON_ERROR);
+        ]);
 
         $headers = [
-            'Content-Type' => 'application/json',
+            'Content-Type' => 'application/x-www-form-urlencoded',
             'Accept' => 'application/json',
         ];
 

@@ -39,7 +39,7 @@ test:
 	"$(EXEC)" vendor/bin/testbench package:test
 
 test-coverage:
-	"$(EXEC)" vendor/bin/testbench package:test --coverage-html coverage
+	"$(EXEC)" vendor/bin/testbench package:test --coverage-text
 
 test-all: phpstan phpcsfixer test
 

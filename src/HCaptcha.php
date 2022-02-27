@@ -4,30 +4,20 @@ declare(strict_types=1);
 
 namespace Scyllaly\HCaptcha;
 
-use GuzzleHttp\Client;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Request;
 
 class HCaptcha
 {
     public const CLIENT_API = 'https://hcaptcha.com/1/api.js';
-    public const VERIFY_URL = 'https://hcaptcha.com/siteverify';
-
-    protected string $secret;
 
     protected string $siteKey;
+    private CaptchaVerifier $captchaVerifier;
 
-    protected Client $http;
-
-    /** @var string[] */
-    protected array $verifiedResponses = [];
-
-    /** @param mixed[] $options */
-    public function __construct(string $secret, string $siteKey, array $options = [])
+    public function __construct(string $siteKey, CaptchaVerifier $captchaVerifier)
     {
-        $this->secret = $secret;
         $this->siteKey = $siteKey;
-        $this->http = new Client($options);
+        $this->captchaVerifier = $captchaVerifier;
     }
 
     /**
@@ -87,36 +77,21 @@ class HCaptcha
         return '<script src="' . $this->getJsLink($lang, $hasCallback, $onLoadClass) . '" async defer></script>' . "\n";
     }
 
-    /** Verify hCaptcha response. */
+    /**
+     * Verify hCaptcha response.
+     *
+     * @codeCoverageIgnore
+     */
     public function verifyResponse(string $response, ?string $clientIp = null): bool
     {
-        if (empty($response)) {
-            return false;
-        }
-
-        // Return true if response already verfied before.
-        if (\in_array($response, $this->verifiedResponses)) {
-            return true;
-        }
-
-        $verifyResponse = $this->sendRequestVerify([
-            'secret' => $this->secret,
-            'response' => $response,
-            'remoteip' => $clientIp,
-        ]);
-
-        if (isset($verifyResponse['success']) && $verifyResponse['success'] === true) {
-            // A response can only be verified once from hCaptcha, so we need to
-            // cache it to make it work in case we want to verify it multiple times.
-            $this->verifiedResponses[] = $response;
-
-            return true;
-        }
-
-        return false;
+        return $this->captchaVerifier->isValid($response, $clientIp);
     }
 
-    /** Verify hCaptcha response by Symfony Request. */
+    /**
+     * Verify hCaptcha response by Symfony Request.
+     *
+     * @codeCoverageIgnore
+     */
     public function verifyRequest(Request $request): bool
     {
         return $this->verifyResponse(
@@ -144,22 +119,6 @@ class HCaptcha
         }
 
         return self::CLIENT_API . '?' . http_build_query($params);
-    }
-
-    /**
-     * Send verify request.
-     *
-     * @param mixed[] $query
-     *
-     * @return mixed[]
-     */
-    protected function sendRequestVerify(array $query = [])
-    {
-        $response = $this->http->request('POST', static::VERIFY_URL, [
-            'form_params' => $query,
-        ]);
-
-        return json_decode($response->getBody()->getContents(), true, 512, \JSON_THROW_ON_ERROR);
     }
 
     /**

@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Facade;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @codeCoverageIgnore
- *
  * @method static string display(array $attributes = [])
  * @method static string displayWidget(array $attributes = [])
  * @method static string displaySubmit(string $formIdentifier, string $buttonText, array $attributes = [])

@@ -4,30 +4,29 @@ declare(strict_types=1);
 
 namespace Scyllaly\HCaptcha;
 
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+use Scyllaly\HCaptcha\Facades\HCaptcha as HCaptchaFacade;
+use Symfony\Component\HttpFoundation\Request;
 
 final class HCaptchaServiceProvider extends ServiceProvider
 {
-    /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = false;
-
     public function boot(): void
     {
-        $app = $this->app;
-
         $this->bootConfig();
 
-        $app['validator']->extend('HCaptcha', function ($attribute, $value) use ($app) {
-            return $app['HCaptcha']->verifyResponse($value, $app['request']->getClientIp());
+        Validator::extend('HCaptcha', function ($attribute, $value) {
+            /** @var Request $request */
+            $request = request();
+
+            return HCaptchaFacade::verifyResponse($value, $request->getClientIp());
         });
 
-        if ($app->bound('form')) {
-            $app['form']->macro('HCaptcha', function ($attributes = []) use ($app) {
-                return $app['HCaptcha']->display($attributes, $app->getLocale());
+        if ($this->app->bound('form')) {
+            $form = $this->app->make('form');
+
+            $form::macro('HCaptcha', function (array $attributes = []) {
+                return HCaptchaFacade::display($attributes);
             });
         }
     }
@@ -38,27 +37,21 @@ final class HCaptchaServiceProvider extends ServiceProvider
 
         $this->mergeConfigFrom($path, 'HCaptcha');
 
-        if (\function_exists('config_path')) {
-            $this->publishes([$path => config_path('HCaptcha.php')]);
-        }
+        $this->publishes([
+            $path => config_path('HCaptcha.php'),
+        ]);
     }
 
     public function register(): void
     {
-        $this->app->singleton('HCaptcha', function ($app) {
+        $this->app->singleton(HCaptcha::class, function () {
             return new HCaptcha(
-                $app['config']['HCaptcha.secret'],
-                $app['config']['HCaptcha.sitekey'],
-                $app['config']['HCaptcha.options'],
+                config('HCaptcha.secret'),
+                config('HCaptcha.sitekey'),
+                config('HCaptcha.options', []),
             );
         });
 
-        $this->app->alias('HCaptcha', HCaptcha::class);
-    }
-
-    /** @return string[] */
-    public function provides(): array
-    {
-        return ['HCaptcha'];
+        $this->app->alias(HCaptcha::class, 'HCaptcha');
     }
 }

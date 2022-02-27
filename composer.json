@@ -19,7 +19,9 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "illuminate/support": "^8.0 || ^9.0"
+        "ext-json": "*",
+        "illuminate/support": "^8.0 || ^9.0",
+        "guzzlehttp/guzzle": "^7.4"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.23.1",
@@ -47,6 +49,9 @@
             "ergebnis/composer-normalize": true,
             "phpstan/extension-installer": true
         }
+    },
+    "suggest": {
+        "laravelcollective/html": "Allows rendering the HCaptcha widget using the Form facade"
     },
     "extra": {
         "laravel": {

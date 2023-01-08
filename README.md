@@ -4,8 +4,8 @@
 
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/rvxlab/hcaptcha.svg?style=flat-square)](https://packagist.org/packages/rvxlab/hcaptcha)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/rvxlab/hcaptcha/Run%20tests?label=tests&style=flat-square)](https://github.com/rvxlab/hcaptcha/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/rvxlab/hcaptcha/Check%20&%20fix%20styling?label=code%20style&style=flat-square)](https://github.com/rvxlab/hcaptcha/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/rvxlab/hcaptcha/run-tests.yml?branch=master?label=tests&style=flat-square)](https://github.com/rvxlab/hcaptcha/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/rvxlab/hcaptcha/php-cs-fixer.yml?branch=master?label=code%20style&style=flat-square)](https://github.com/rvxlab/hcaptcha/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/rvxlab/hcaptcha.svg?style=flat-square)](https://packagist.org/packages/rvxlab/hcaptcha)
 
 A package to easily include [HCaptcha](https://hcaptcha.com) in Laravel.

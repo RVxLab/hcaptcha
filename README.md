@@ -3,10 +3,10 @@
 # Laravel HCaptcha
 
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/rvxlab/hcaptcha.svg?style=flat-square)](https://packagist.org/packages/rvxlab/hcaptcha)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/rvxlab/hcaptcha.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/rvxlab/hcaptcha)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/rvxlab/hcaptcha/run-tests.yml?label=Tests&style=flat-square)](https://github.com/RVxLab/hcaptcha/actions/workflows/run-tests.yml)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/rvxlab/hcaptcha/php-cs-fixer.yml?label=Lint&style=flat-square)](https://github.com/RVxLab/hcaptcha/actions/workflows/php-cs-fixer.yml)
-[![Total Downloads](https://img.shields.io/packagist/dt/rvxlab/hcaptcha.svg?style=flat-square)](https://packagist.org/packages/rvxlab/hcaptcha)
+[![Total Downloads](https://img.shields.io/packagist/dt/rvxlab/hcaptcha.svg?label=Downloads&style=flat-square)](https://packagist.org/packages/rvxlab/hcaptcha)
 
 A package to easily include [HCaptcha](https://hcaptcha.com) in Laravel.
 

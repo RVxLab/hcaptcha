@@ -20,7 +20,7 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
-        "illuminate/support": "^8.28 || ^9.0",
+        "illuminate/support": "^8.28 || ^9.0 || ^10.0",
         "guzzlehttp/guzzle": "^7.4"
     },
     "require-dev": {
@@ -28,10 +28,10 @@
         "nunomaduro/larastan": "^1.0 || ^2.0",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-phpunit": "^1.0",
-        "phpunit/phpunit": "^9.5.23",
+        "phpunit/phpunit": "^9.5.23 || ^10.0",
         "roave/security-advisories": "dev-latest",
-        "orchestra/testbench": "^6.24 || ^7.0",
-        "nunomaduro/collision": "^5.10 || ^6.0"
+        "orchestra/testbench": "^6.24 || ^7.0 || ^8.0",
+        "nunomaduro/collision": "^5.10 || ^6.0 || ^7.0"
     },
     "autoload": {
         "psr-4": {

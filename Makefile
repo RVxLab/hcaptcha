@@ -2,8 +2,8 @@
 
 EXEC="docker-compose exec -u app workspace"
 
-uid=1000
-gid=1000
+uid := $(shell id -u)
+gid := $(shell id -g)
 
 ## Docker
 up:
@@ -42,19 +42,6 @@ test-coverage:
 	"$(EXEC)" vendor/bin/testbench package:test --coverage-text
 
 test-all: phpstan phpcsfixer test
-
-## Npm
-npm:
-	"$(EXEC)" npm $(cmd)
-
-npm-dev:
-	"$(EXEC)" npm run dev
-
-npm-watch:
-	"$(EXEC)" npm run watch
-
-npm-prod:
-	"$(EXEC)" npm run prod
 
 ## Misc
 sh:

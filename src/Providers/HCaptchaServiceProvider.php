@@ -27,6 +27,8 @@ final class HCaptchaServiceProvider extends ServiceProvider
 
         $this->bootViewComponents();
 
+        $this->bootViews();
+
         Validator::extend('HCaptcha', function ($attribute, $value) {
             /** @var Request $request */
             $request = request();
@@ -78,6 +80,17 @@ final class HCaptchaServiceProvider extends ServiceProvider
              Widget::class,
              Submit::class,
         ]);
+    }
+
+    private function bootViews(): void
+    {
+        $viewPath = __DIR__ . '/../../resources/views';
+        $publishPath = resource_path('views/vendor/hcaptcha');
+
+        $this->loadViewsFrom($viewPath, 'hcaptcha');
+        $this->publishes([
+            $viewPath => $publishPath,
+        ], 'hcaptcha-views');
     }
 
     public function register(): void

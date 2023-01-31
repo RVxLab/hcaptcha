@@ -6,13 +6,16 @@ namespace Scyllaly\HCaptcha\Tests\Feature\Views\Components;
 
 use Illuminate\Support\Facades\Blade;
 use Scyllaly\HCaptcha\Tests\TestCase;
+use Spatie\Snapshots\MatchesSnapshots;
 
 final class WidgetTest extends TestCase
 {
+    use MatchesSnapshots;
+
     public function testCanRender(): void
     {
         $html = Blade::render('<x-hcaptcha::widget />');
 
-        self::assertSame('<div data-sitekey="HCaptchaSiteKey" class="h-captcha"></div>', trim($html));
+        $this->assertMatchesHtmlSnapshot($html);
     }
 }

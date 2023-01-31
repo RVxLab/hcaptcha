@@ -29,7 +29,9 @@ class HCaptcha
     {
         $attributes = $this->prepareAttributes($attributes);
 
-        return '<div' . $this->buildAttributes($attributes) . '></div>';
+        return view('hcaptcha::widget', [
+            'attributes' => $this->buildAttributes($attributes),
+        ])->render();
     }
 
     /**
@@ -57,16 +59,19 @@ class HCaptcha
         if (! isset($attributes['data-callback'])) {
             $functionName = sprintf('on%sSubmit', Str::of($formIdentifier)->title()->replace(['-', '=', '\'', '"', '<', '>', '`'], ''));
             $attributes['data-callback'] = $functionName;
-            $javascript = sprintf(
-                '<script>function %s(){document.getElementById("%s").submit();}</script>',
-                $functionName,
-                $formIdentifier,
-            );
+
+            $javascript = view('hcaptcha::default-submit-callback', [
+                'formIdentifier' => $formIdentifier,
+                'functionName' => $functionName,
+            ])->render();
         }
 
         $attributes = $this->prepareAttributes($attributes);
 
-        $button = sprintf('<button%s><span>%s</span></button>', $this->buildAttributes($attributes), $buttonText);
+        $button = view('hcaptcha::submit', [
+            'attributes' => $this->buildAttributes($attributes),
+            'text' => $buttonText,
+        ])->render();
 
         return $button . $javascript;
     }
@@ -74,7 +79,9 @@ class HCaptcha
     /** Render js source */
     public function renderJs(?string $lang = null, bool $hasCallback = false, string $onLoadClass = 'onloadCallBack'): string
     {
-        return '<script src="' . $this->getJsLink($lang, $hasCallback, $onLoadClass) . '" async defer></script>' . "\n";
+        return view('hcaptcha::script', [
+            'url' => $this->getJsLink($lang, $hasCallback, $onLoadClass),
+        ])->render();
     }
 
     /**
@@ -150,12 +157,12 @@ class HCaptcha
      */
     protected function buildAttributes(array $attributes): string
     {
-        $html = [];
+        $htmlAttributesAsString = [];
 
         foreach ($attributes as $key => $value) {
-            $html[] = $key . '="' . $value . '"';
+            $htmlAttributesAsString[] = sprintf('%s="%s"', $key, $value);
         }
 
-        return \count($html) ? ' ' . implode(' ', $html) : '';
+        return implode(' ', $htmlAttributesAsString);
     }
 }

@@ -6,44 +6,33 @@ namespace Scyllaly\HCaptcha\Tests\Feature;
 
 use Scyllaly\HCaptcha\Facades\HCaptcha;
 use Scyllaly\HCaptcha\Tests\TestCase;
+use Spatie\Snapshots\MatchesSnapshots;
 
 final class HCaptchaTest extends TestCase
 {
+    use MatchesSnapshots;
+
     public function testCanDisplayWidget(): void
     {
-        $expectedWidget = trim(<<<HTML
-            <div data-sitekey="HCaptchaSiteKey" class="h-captcha"></div>
-        HTML);
-
-        $widget = HCaptcha::display();
-
-        self::assertSame($expectedWidget, $widget);
+        $this->assertMatchesHtmlSnapshot(HCaptcha::display());
     }
 
     public function testCanDisplayWidgetWithCustomAttributes(): void
     {
-        $expectedWidget = trim(<<<HTML
-            <div class="h-captcha widget" data-thing="A thing" role="presentation" data-sitekey="HCaptchaSiteKey"></div>
-        HTML);
-
         $widget = HCaptcha::display([
             'class' => 'widget',
             'data-thing' => 'A thing',
             'role' => 'presentation',
         ]);
 
-        self::assertSame($expectedWidget, $widget);
+        $this->assertMatchesHtmlSnapshot($widget);
     }
 
     public function testInvisibleWidget(): void
     {
-        $expectedWidget = trim(<<<HTML
-            <button data-callback="onMyFormSubmit" data-sitekey="HCaptchaSiteKey" class="h-captcha"><span>Submit</span></button><script>function onMyFormSubmit(){document.getElementById("my-form").submit();}</script>
-        HTML);
-
         $widget = HCaptcha::displaySubmit('my-form', 'Submit');
 
-        self::assertSame($expectedWidget, $widget);
+        $this->assertMatchesHtmlSnapshot($widget);
     }
 
     /** @dataProvider jsLinkProvider */
@@ -80,7 +69,7 @@ final class HCaptchaTest extends TestCase
                 'hasCallback' => true,
                 'onLoadClass' => 'onloadCallback',
             ],
-            '<script src="https://hcaptcha.com/1/api.js?render=explicit&onload=onloadCallback" async defer></script>',
+            '<script src="https://hcaptcha.com/1/api.js?render=explicit&amp;onload=onloadCallback" async defer></script>',
         ];
 
         yield 'With both set' => [
@@ -89,7 +78,7 @@ final class HCaptchaTest extends TestCase
                 'hasCallback' => true,
                 'onLoadClass' => 'onloadCallback',
             ],
-            '<script src="https://hcaptcha.com/1/api.js?render=explicit&onload=onloadCallback&hl=nl" async defer></script>',
+            '<script src="https://hcaptcha.com/1/api.js?render=explicit&amp;onload=onloadCallback&amp;hl=nl" async defer></script>',
         ];
     }
 }

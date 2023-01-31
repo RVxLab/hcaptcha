@@ -41,6 +41,12 @@ Optionally publish the translations:
 php artisan vendor:publish --tag="hcaptcha-lang"
 ```
 
+Optionally publish the views:
+
+```shell
+php artisan vendor:publish --tag="hcaptcha-views"
+```
+
 ## Configuration
 
 Add `HCAPTCHA_SECRET` and `HCAPTCHA_SITEKEY` in **.env** file :

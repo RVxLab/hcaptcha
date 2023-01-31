@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Scyllaly\HCaptcha\Tests\Feature\Views\Components;
 
-use Illuminate\Foundation\Testing\Concerns\InteractsWithViews;
 use Illuminate\Support\Facades\Blade;
 use Scyllaly\HCaptcha\Tests\TestCase;
 use Spatie\Snapshots\MatchesSnapshots;

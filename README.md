@@ -12,7 +12,7 @@ A package to easily include [HCaptcha](https://hcaptcha.com) in Laravel.
 
 This project is originally based on [laravel-reCAPTCHA](https://github.com/Dylanchouxd/laravel-reCAPTCHA) and forked from [Scyllaly](https://github.com/scyllaly), who seemingly abandoned the project.
 
-This fork is a drop-in replacement for Scyllaly's package, maintaining the same namespace for 4.x and 5.x versions.
+This fork is a near-drop-in replacement for Scyllaly's package, maintaining the same namespace for 4.x and 5.x versions.
 
 ## Requirements
 

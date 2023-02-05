@@ -18,6 +18,7 @@ This project is originally based on [laravel-reCAPTCHA](https://github.com/Dylan
 |-----------------|---------------------|
 | 8.x             | 7.4                 |
 | 9.x             | 8.0                 |
+| 10.x            | 8.1                 |
 
 Need support for Laravel 7 or before? Check the [4.x branch](https://github.com/RVxLab/hcaptcha/tree/4.x).
 

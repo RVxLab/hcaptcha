@@ -43,7 +43,7 @@ final class HCaptchaTest extends TestCase
         self::assertSame(trim($expectedScriptTag), trim($scriptTag));
     }
 
-    public function jsLinkProvider(): iterable
+    public static function jsLinkProvider(): iterable
     {
         yield 'Default values' => [
             [

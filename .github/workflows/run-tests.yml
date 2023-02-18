@@ -20,20 +20,17 @@ jobs:
             testbench: "^6.23"
             symfony: "^5"
             collision: "^5"
+            phpunit-config: "phpunit-9.xml"
           - laravel: "9.*"
             testbench: "^7"
             symfony: "^6"
             collision: "^6"
+            phpunit-config: "phpunit-9.xml"
           - laravel: "10.*"
-            php: "8.1"
             testbench: "^8"
             symfony: "^6.2"
             collision: "^7"
-          - laravel: "10.*"
-            php: "8.2"
-            testbench: "^8"
-            symfony: "^6.2"
-            collision: "^7"
+            phpunit-config: "phpunit.xml"
         exclude:
           - laravel: "10.*"
             php: "8.0"
@@ -63,4 +60,4 @@ jobs:
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: Execute tests
-        run: vendor/bin/phpunit
+        run: vendor/bin/phpunit -c ${{ matrix.phpunit-config }}

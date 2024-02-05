@@ -14,13 +14,13 @@
         },
         {
             "name": "RVxLab",
-            "email": "richard@rvx.works"
+            "email": "code@rvx.works"
         }
     ],
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-json": "*",
-        "illuminate/support": "^8.28 || ^9.0 || ^10.0",
+        "illuminate/support": "^8.28 || ^9.0 || ^10.0 || ^11.0",
         "guzzlehttp/guzzle": "^7.4"
     },
     "require-dev": {

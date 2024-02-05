@@ -2,7 +2,6 @@
 
 # Laravel HCaptcha
 
-
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/rvxlab/hcaptcha.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/rvxlab/hcaptcha)
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/rvxlab/hcaptcha/run-tests.yml?label=Tests&style=flat-square)](https://github.com/RVxLab/hcaptcha/actions/workflows/run-tests.yml)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/rvxlab/hcaptcha/php-cs-fixer.yml?label=Lint&style=flat-square)](https://github.com/RVxLab/hcaptcha/actions/workflows/php-cs-fixer.yml)
@@ -21,6 +20,7 @@ This fork is a near-drop-in replacement for Scyllaly's package, maintaining the 
 | 8.x             | 7.4                 |
 | 9.x             | 8.0                 |
 | 10.x            | 8.1                 |
+| 11.x            | 8.2                 |
 
 Need support for Laravel 7 or before? Check the [4.x branch](https://github.com/RVxLab/hcaptcha/tree/4.x).
 

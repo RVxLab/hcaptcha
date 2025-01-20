@@ -57,7 +57,7 @@ class HCaptcha
     {
         $javascript = '';
         if (! isset($attributes['data-callback'])) {
-            $functionName = sprintf('on%sSubmit', Str::of($formIdentifier)->title()->replace(['-', '=', '\'', '"', '<', '>', '`'], ''));
+            $functionName = \sprintf('on%sSubmit', Str::of($formIdentifier)->title()->replace(['-', '=', '\'', '"', '<', '>', '`'], ''));
             $attributes['data-callback'] = $functionName;
 
             $javascript = view('hcaptcha::default-submit-callback', [
@@ -160,7 +160,7 @@ class HCaptcha
         $htmlAttributesAsString = [];
 
         foreach ($attributes as $key => $value) {
-            $htmlAttributesAsString[] = sprintf('%s="%s"', $key, $value);
+            $htmlAttributesAsString[] = \sprintf('%s="%s"', $key, $value);
         }
 
         return implode(' ', $htmlAttributesAsString);

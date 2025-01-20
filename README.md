@@ -7,6 +7,14 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/rvxlab/hcaptcha/php-cs-fixer.yml?label=Lint&style=flat-square)](https://github.com/RVxLab/hcaptcha/actions/workflows/php-cs-fixer.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/rvxlab/hcaptcha.svg?label=Downloads&style=flat-square)](https://packagist.org/packages/rvxlab/hcaptcha)
 
+# Looking for a maintainer
+
+I don't have the intention to maintain this package any longer. Captchas only punish the end user and are easily bypassed by bots. 
+
+If someone wants to take over, feel free to open a discussion and tag me in it. 
+
+---
+
 A package to easily include [HCaptcha](https://hcaptcha.com) in Laravel.
 
 This project is originally based on [laravel-reCAPTCHA](https://github.com/Dylanchouxd/laravel-reCAPTCHA) and forked from [Scyllaly](https://github.com/scyllaly), who seemingly abandoned the project.
